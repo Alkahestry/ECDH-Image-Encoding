@@ -70,50 +70,19 @@ def process(b,g,r):
     r_bin = r_bin.astype(str)
     return b_bin,g_bin,r_bin
 
-
-#Convert each pixel value to binary number
-def convert_to_binary(b,g,r):
-    b = np.unpackbits(b,axis=1)
-    g = np.unpackbits(g,axis=1)
-    r = np.unpackbits(r,axis=1)
-    return b,g,r
-
-def encode_to_dna(b,g,r):
-    m,n = b.shape
-    b_enc= np.chararray((m,int(n/2)))
-    g_enc= np.chararray((m,int(n/2)))
-    r_enc= np.chararray((m,int(n/2)))
-    for color,enc in zip([b,g,r],[b_enc,g_enc,r_enc]):
-        for i in range(m):
-            for j in range(int(n/2)):
-                enc[i,j] = dna["{0}{1}".format(color[i][j*2:j*2+2][0],color[i][j*2:j*2+2][1])]
-    b_enc = b_enc.astype(str)
-    g_enc = g_enc.astype(str)
-    r_enc = r_enc.astype(str)
-    return b_enc,g_enc,r_enc
-#Group 4 pixel together following axis 1
-def group_4_pixel_together(img: np.ndarray):
-    m,n = img.shape
-    new_array = np.chararray((m,n//4))
-    # img_grouped = np.chararray((m,n))
-    for i in range(m):
-        for j in range(n//4):
-            new_array[i,j] = "{0}{1}{2}{3}".format(img[i,(j-1)*4],img[i,(j-1)*4+1],img[i,(j-1)*4+2],img[i,(j-1)*4+3])
-    new_array = new_array.astype(str)
-    return new_array
 #Step 3
 def dna_addition(b_enc,g_enc,r_enc):
     b,g,r = b_enc,g_enc,r_enc
     print(b.shape)
     m,n = b_enc.shape
-    b_dna = np.chararray((m,n))
-    g_dna = np.chararray((m,n))
-    r_dna = np.chararray((m,n))
+    b_dna= np.zeros(shape=(b.shape[0],b.shape[1]),dtype="object")
+    g_dna = np.zeros(shape=(g.shape[0],g.shape[1]),dtype="object")
+    r_dna = np.zeros(shape=(r.shape[0],r.shape[1]),dtype="object")
     for i in range(m):
         for j in range(n):
-            r_dna[i,j] = dna["{0}{1}".format(r[i,j],g[i,j])]
-            g_dna[i,j] = dna["{0}{1}".format(g[i,j],b[i,j])]
-            b_dna[i,j] = dna["{0}{1}".format(g_dna[i,j].decode("utf-8"),b[i,j])]
+            r_dna[i,j] = dna["{0}{1}".format(r[i,j][0],g[i,j][1])]+dna["{0}{1}".format(r[i,j][1],g[i,j][1])]+dna["{0}{1}".format(r[i,j][2],b[i,j][2])]+dna["{0}{1}".format(r[i,j][3],b[i,j][3])]
+            g_dna[i,j] = dna["{0}{1}".format(g[i,j][0],b[i,j][0])]+dna["{0}{1}".format(g[i,j][1],b[i,j][1])]+dna["{0}{1}".format(g[i,j][2],b[i,j][2])]+dna["{0}{1}".format(g[i,j][3],b[i,j][3])]
+            b_dna[i,j] = dna["{0}{1}".format(g_dna[i,j][0],b[i,j][0])]+dna["{0}{1}".format(g_dna[i,j][1],b[i,j][1])]+dna["{0}{1}".format(g_dna[i,j][2],b[i,j][2])]+dna["{0}{1}".format(g_dna[i,j][3],b[i,j][3])]
     b_dna = b_dna.astype(str)
     g_dna = g_dna.astype(str)
     r_dna = r_dna.astype(str)
@@ -161,27 +130,24 @@ def shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_
 #Interleave BBBGGGRRR to BGRBGRBGR
 def interleave_dna(b_dna,g_dna,r_dna):
     m,n = b_dna.shape
-    b_dna_interleaved = np.chararray((m,n))
-    g_dna_interleaved = np.chararray((m,n))
-    r_dna_interleaved = np.chararray((m,n))
-    for i in range(m):
-        for j in range(n):
-            b_dna_interleaved[i,j] = b_dna[i,j]
-            g_dna_interleaved[i,j] = g_dna[i,j]
-            r_dna_interleaved[i,j] = r_dna[i,j]
-    for i in range(m):
-        for j in range(n):
-            if j%2==0:
-                b_dna_interleaved[i,j] = b_dna[i,j]
-                g_dna_interleaved[i,j] = r_dna[i,j]
-                r_dna_interleaved[i,j] = g_dna[i,j]
-            else:
-                b_dna_interleaved[i,j] = r_dna[i,j]
-                g_dna_interleaved[i,j] = b_dna[i,j]
-                r_dna_interleaved[i,j] = g_dna[i,j]
-    b_dna_interleaved = b_dna_interleaved.astype(str)
-    g_dna_interleaved = g_dna_interleaved.astype(str)
-    r_dna_interleaved = r_dna_interleaved.astype(str)
+    b_dna_interleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
+    g_dna_interleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
+    r_dna_interleaved = np.zeros(shape=(r_dna.shape[0],r_dna.shape[1]),dtype="object")
+    # for i in range(m):
+    for j in range(n):
+        if j%3==0:
+            b_dna_interleaved[:,j] = b_dna[:,j]
+            g_dna_interleaved[:,j] = g_dna[:,j]
+            r_dna_interleaved[:,j] = r_dna[:,j]
+        elif j%3==1:
+            b_dna_interleaved[:,j] = r_dna[:,j]
+            g_dna_interleaved[:,j] = b_dna[:,j]
+            r_dna_interleaved[:,j] = g_dna[:,j]
+        else:
+            b_dna_interleaved[:,j] = g_dna[:,j]
+            g_dna_interleaved[:,j] = r_dna[:,j]
+            r_dna_interleaved[:,j] = b_dna[:,j]
+
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 
     
@@ -190,29 +156,28 @@ if __name__ == "__main__":
     b,g,r = split_image_into_channel(img)
     print("Shape after split {0}".format(b.shape))
     b_enc,g_enc,r_enc = process(b,g,r)
-    print("Shape after convert to binary {0}".format(b.shape))
-    print(b_enc)
-    print(b_enc[0])
-    print(b_enc[0][0])
-    # b_enc,g_enc,r_enc = encode_to_dna(b,g,r)
     print("Shape after encoded to dna {0}".format(b_enc.shape))
-    # b_enc,g_enc,r_enc = group_4_pixel_together(b_enc),group_4_pixel_together(g_enc),group_4_pixel_together(r_enc)
-    # print("Shape after group 4 pixel together {0}".format(b_enc.shape))
-    # print(b_enc)
-    # print(b_enc[0])
-    # print(b_enc[0][1])
     
     b_dna,g_dna,r_dna = dna_addition(b_enc,g_enc,r_enc)
     print("Shape after dna addition{0}".format(b_dna.shape))
-    # rgb_dna = interleave_dna(b_dna,g_dna,r_dna)
-    # print("Shape after interleave {0}".format(rgb_dna[0].shape))
 
-    # rgb = np.dstack((rgb_dna[0],rgb_dna[1],rgb_dna[2]))
-    # print(rgb_dna[0])
-    # b_dna,g_dna,r_dna = deinterleave_dna(rgb_dna[0],rgb_dna[1],rgb_dna[2])
-    # print("Shape after deinterleave {0}".format(b_dna.shape))
-    # shift_sequence = generate_random_octal_sequence()
-    # img = shift_array_with_octal_sequece(img,shift_sequence,ai)
+    shift_sequence = generate_random_octal_sequence()
+    b_shift = shift_array_with_octal_sequece(b_dna,shift_sequence,ai)
+    g_shift = shift_array_with_octal_sequece(g_dna,shift_sequence,ai)
+    r_shift = shift_array_with_octal_sequece(r_dna,shift_sequence,ai)
+
+    print(b_shift[:10,:10])
+    print(g_shift[:10,:10])
+    print(r_shift[:10,:10])
+    b_dna_interleaved,g_dna_interleaved,r_dna_interleaved = interleave_dna(b_shift,g_shift,r_shift)
+    print("Shape after interleave {0}".format(b_dna_interleaved.shape))
+    print(b_dna_interleaved[:10,:10])
+    print(g_dna_interleaved[:10,:10])
+    print(r_dna_interleaved[:10,:10])
+    
+    # rgb_shift = interleave_dna(b_shift,g_shift,r_shift)
+    # arr = np.array([b_shift,g_shift,r_shift])
+    # print(arr.shape)
 
     # cv2.imshow("Image",img)
     # cv2.waitKey(0)
