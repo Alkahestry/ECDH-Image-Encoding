@@ -32,7 +32,7 @@ dna["A"] = [0,0]
 dna["C"] = [0,1]
 dna["G"] = [1,0]
 dna["T"] = [1,1]
-#DNA xor
+#DNA addition
 dna["CT"]=dna["TC"]=dna["GG"]=dna["AA"]="A"
 dna["AC"]=dna["CA"]=dna["TG"]=dna["GT"]="C"
 dna["AG"]=dna["GA"]=dna["TT"]=dna["CC"]="G"
