@@ -28,10 +28,10 @@ dna["00"] = "A"
 dna["01"] = "C"
 dna["10"] = "G"
 dna["11"] = "T"
-dna["A"] = [0,0]
-dna["C"] = [0,1]
-dna["G"] = [1,0]
-dna["T"] = [1,1]
+dna["A"] = "00"
+dna["C"] = "01"
+dna["G"] = "10"
+dna["T"] = "11"
 #DNA addition
 dna["CT"]=dna["TC"]=dna["GG"]=dna["AA"]="A"
 dna["AC"]=dna["CA"]=dna["TG"]=dna["GT"]="C"
@@ -150,7 +150,24 @@ def interleave_dna(b_dna,g_dna,r_dna):
 
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 
+#DNA string to binary
+def dna_str_to_binary(dna_str: str):
+    binary = ""
+    for i in range(len(dna_str)):
+        binary+=dna[dna_str[i]]
+    return binary
+
+#Dna to binary
+def dna_to_binary(dna: np.ndarray):
+    m,n = dna.shape
+    binary_dna = np.zeros(shape=(m,n),dtype="object")
+    for i in range(m):
+        for j in range(n):
+            binary_dna[i,j] = dna_str_to_binary(dna[i,j])
+    return binary_dna
+
 #Decode the image
+
 
 if __name__ == "__main__":
     b,g,r = split_image_into_channel(img)
@@ -174,7 +191,13 @@ if __name__ == "__main__":
     print(b_dna_interleaved[:10,:10])
     print(g_dna_interleaved[:10,:10])
     print(r_dna_interleaved[:10,:10])
-
+    b_bin = dna_to_binary(b_dna_interleaved)
+    g_bin = dna_to_binary(g_dna_interleaved)
+    r_bin = dna_to_binary(r_dna_interleaved)
+    print("Shape after dna to binary {0}".format(b_bin.shape))
+    print(b_bin[:10,:10])
+    print(g_bin[:10,:10])
+    print(r_bin[:10,:10])
     # cv2.imshow("Image",img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
