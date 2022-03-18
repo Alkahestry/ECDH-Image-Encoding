@@ -150,7 +150,7 @@ def interleave_dna(b_dna,g_dna,r_dna):
 
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 
-    
+#Decode the image
 
 if __name__ == "__main__":
     b,g,r = split_image_into_channel(img)
@@ -174,10 +174,6 @@ if __name__ == "__main__":
     print(b_dna_interleaved[:10,:10])
     print(g_dna_interleaved[:10,:10])
     print(r_dna_interleaved[:10,:10])
-    
-    # rgb_shift = interleave_dna(b_shift,g_shift,r_shift)
-    # arr = np.array([b_shift,g_shift,r_shift])
-    # print(arr.shape)
 
     # cv2.imshow("Image",img)
     # cv2.waitKey(0)
