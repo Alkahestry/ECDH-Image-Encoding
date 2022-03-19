@@ -17,6 +17,12 @@ ga_priv = os.urandom(32)
 gb_priv = os.urandom(32)
 ba_priv = os.urandom(32)
 bb_priv = os.urandom(32)
+print("ra_priv =",ra_priv)
+print("rb_priv = ",rb_priv)
+print("ga_priv =",ga_priv)
+print("gb_priv =",gb_priv)
+print("bb_priv =",bb_priv)
+print("ba_priv =",ba_priv)
 #To int
 # ai = bytes_to_int(a)
 # bi = bytes_to_int(b)
@@ -92,7 +98,7 @@ def dna_addition(b_enc,g_enc,r_enc):
     r_dna = np.zeros(shape=(r.shape[0],r.shape[1]),dtype="object")
     for i in range(m):
         for j in range(n):
-            r_dna[i,j] = dna["{0}{1}".format(r[i,j][0],g[i,j][1])]+dna["{0}{1}".format(r[i,j][1],g[i,j][1])]+dna["{0}{1}".format(r[i,j][2],b[i,j][2])]+dna["{0}{1}".format(r[i,j][3],b[i,j][3])]
+            r_dna[i,j] = dna["{0}{1}".format(r[i,j][0],g[i,j][0])]+dna["{0}{1}".format(r[i,j][1],g[i,j][1])]+dna["{0}{1}".format(r[i,j][2],b[i,j][2])]+dna["{0}{1}".format(r[i,j][3],b[i,j][3])]
             g_dna[i,j] = dna["{0}{1}".format(g[i,j][0],b[i,j][0])]+dna["{0}{1}".format(g[i,j][1],b[i,j][1])]+dna["{0}{1}".format(g[i,j][2],b[i,j][2])]+dna["{0}{1}".format(g[i,j][3],b[i,j][3])]
             b_dna[i,j] = dna["{0}{1}".format(g_dna[i,j][0],b[i,j][0])]+dna["{0}{1}".format(g_dna[i,j][1],b[i,j][1])]+dna["{0}{1}".format(g_dna[i,j][2],b[i,j][2])]+dna["{0}{1}".format(g_dna[i,j][3],b[i,j][3])]
     b_dna = b_dna.astype(str)
@@ -190,17 +196,7 @@ def binary_to_int(array: np.ndarray):
             int_array[i,j] = int(array[i,j],2)
     return int_array
 #inverse shifting with shift sequence
-def inverse_shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_key: str):
-    shared_key = bytes_to_int(binascii.hexlify(shared_key.encode()))
-    shift_order = [shift_address[int(num)] for num in shift_sequence]
-    
-    index = 0
-    print(shift_order)
-    for shift in shift_order:
-        for direction in shift:
-            array = shift_direction[direction](array,-int(str(shared_key)[index:index+2]))
-        index = index + 1
-    return array
+
 
 if __name__ == "__main__":
     b,g,r = split_image_into_channel(img)
@@ -217,7 +213,13 @@ if __name__ == "__main__":
     b_shift = shift_array_with_octal_sequece(b_dna,shift_sequence_b,shared_ba)
     g_shift = shift_array_with_octal_sequece(g_dna,shift_sequence_g,shared_ga)
     r_shift = shift_array_with_octal_sequece(r_dna,shift_sequence_r,shared_ra)
-
+    print("Shift sequence shift_sequence_b {0}".format(shift_sequence_b))
+    print("Shift sequence shift_sequence_g {0}".format(shift_sequence_g))
+    print("Shift sequence shift_sequence_r {0}".format(shift_sequence_r))
+    print("Shared key shared_ba {0}".format(shared_ba))
+    print("Shared key shared_ga {0}".format(shared_ga))
+    print("Shared key shared_ra {0}".format(shared_ra))
+    
 
     b_dna_interleaved,g_dna_interleaved,r_dna_interleaved = interleave_dna(b_shift,g_shift,r_shift)
     print("Shape after interleave {0}".format(b_dna_interleaved.shape))
