@@ -60,6 +60,28 @@ def process(b,g,r):
     r_bin = r_bin.astype(str)
     return b_bin,g_bin,r_bin
 
+#deinterleave dna
+def deinterleave_dna(b_dna,g_dna,r_dna):
+    m,n = b_dna.shape
+    b_dna_deinterleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
+    g_dna_deinterleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
+    r_dna_deinterleaved = np.zeros(shape=(r_dna.shape[0],r_dna.shape[1]),dtype="object")
+    # for i in range(m):
+    for j in range(n):
+        if j%3==0:
+            b_dna_deinterleaved[:,j] = b_dna[:,j]
+            g_dna_deinterleaved[:,j] = g_dna[:,j]
+            r_dna_deinterleaved[:,j] = r_dna[:,j]
+        elif j%3==1:
+            b_dna_deinterleaved[:,j] = g_dna[:,j]
+            g_dna_deinterleaved[:,j] = r_dna[:,j]
+            r_dna_deinterleaved[:,j] = b_dna[:,j]
+        else:
+            b_dna_deinterleaved[:,j] = r_dna[:,j]
+            g_dna_deinterleaved[:,j] = b_dna[:,j]
+            r_dna_deinterleaved[:,j] = g_dna[:,j]
+    return b_dna_deinterleaved,g_dna_deinterleaved,r_dna_deinterleaved
+
 #Step 3
 def dna_subtraction(b_enc,g_enc,r_enc):
     b,g,r = b_enc,g_enc,r_enc
@@ -77,3 +99,11 @@ def dna_subtraction(b_enc,g_enc,r_enc):
     g_dna = g_dna.astype(str)
     r_dna = r_dna.astype(str)
     return b_dna,g_dna,r_dna
+
+if __name__== "__main__":
+    b,g,r = split_image_into_channel(img)
+    b_dec,g_dec,r_dec = process(b,g,r)
+    b_deinterleaved,g_deinterleaved,r_deinterleaved = deinterleave_dna(b_dec,g_dec,r_dec)
+    print(b_deinterleaved[:10,:10])
+    b_dna,g_dna,r_dna = dna_subtraction(b_deinterleaved,g_deinterleaved,r_deinterleaved)
+    print(b_dna[:10,:10])

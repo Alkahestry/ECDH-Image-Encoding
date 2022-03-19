@@ -127,7 +127,6 @@ def shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_
     shift_order = [shift_address[int(num)] for num in shift_sequence]
     
     index = 0
-    # shift_amount = lambda shared_key: ,16)
     print(shift_order)
     for shift in shift_order:
         for direction in shift:
@@ -190,7 +189,18 @@ def binary_to_int(array: np.ndarray):
         for j in range(n):
             int_array[i,j] = int(array[i,j],2)
     return int_array
-
+#inverse shifting with shift sequence
+def inverse_shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_key: str):
+    shared_key = bytes_to_int(binascii.hexlify(shared_key.encode()))
+    shift_order = [shift_address[int(num)] for num in shift_sequence]
+    
+    index = 0
+    print(shift_order)
+    for shift in shift_order:
+        for direction in shift:
+            array = shift_direction[direction](array,-int(str(shared_key)[index:index+2]))
+        index = index + 1
+    return array
 
 if __name__ == "__main__":
     b,g,r = split_image_into_channel(img)
