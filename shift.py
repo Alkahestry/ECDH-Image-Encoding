@@ -23,6 +23,7 @@ def shift_array_down(img: np.ndarray,shift_amount: int):
     return img
 
 shift_direction = {"R":shift_array_right,"L":shift_array_left,"U":shift_array_up,"D":shift_array_down}
+inverse_shift_direction = {"R":shift_array_left,"L":shift_array_right,"U":shift_array_down,"D":shift_array_up}
 
 def shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_key: str):
     shared_key = bytes_to_int(binascii.hexlify(shared_key.encode()))
