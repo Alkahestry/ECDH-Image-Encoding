@@ -36,12 +36,14 @@ Highlights:
 + Decoding requires 3 shared keys (calculated from 3 private keys and 3 other party's public keys) along with 3 octal shift sequences.
 
 
-## Result
+We don't implement extra encoding step between 2 interleaving steps because the authors didn't describe the process specifically. Which makes our algorithm different and less secured from the proposed algorithm in the paper.
+
+## Results
 
 
 ![alt text](https://github.com/Alkahestry/ECDH-Image-Encoding/blob/main/resources/combine_images.jpg)
 
-The encoder yeilds an average result for encrypting multicolored and complicated images, but to encode a much more simple image, the algorithm is still far from the finish line. I would recommend adding extra encoding steps for a more secured cryptographic system.
+Conclusion: The encoder yeilds an average result for encrypting multicolored and complicated images, but to encode a much more simple image, the algorithm is still far from the finish line. I would recommend adding extra encoding steps for a more secured cryptographic system.
 
 
 ## Contributing
