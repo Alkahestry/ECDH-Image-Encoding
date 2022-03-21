@@ -38,7 +38,9 @@ if __name__ == "__main__":
     g_shift = shift_array_with_octal_sequece(g_dna,shift_sequence_g,shared_ga)
     r_shift = shift_array_with_octal_sequece(r_dna,shift_sequence_r,shared_ra)
 
-    b_dna_interleaved,g_dna_interleaved,r_dna_interleaved = interleave_dna(b_shift,g_shift,r_shift)
+    b_dna_interleaved,g_dna_interleaved,r_dna_interleaved = interleave_dna_col(b_shift,g_shift,r_shift)
+
+    b_dna_interleaved,g_dna_interleaved,r_dna_interleaved = interleave_dna_row(b_dna_interleaved,g_dna_interleaved,r_dna_interleaved)
 
     b_bin,g_bin,r_bin = [dna_to_binary(dna_interleaved) for dna_interleaved in [b_dna_interleaved,g_dna_interleaved,r_dna_interleaved]]
 
@@ -46,12 +48,12 @@ if __name__ == "__main__":
     
     image = np.dstack((b_int,g_int,r_int))
     image = image.astype(np.uint8)
-
+    print("Encoding image done!")
     cv2.imshow("Enconded Image",image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     cv2.imwrite(output_folder + "/encoded_image."+img_path.split('.')[1],image)
-    print("Encoding image done!")
+    
     print("Writing keys to file...")
     write_keys_to_file(output_folder + "/keys_1.txt",r_priv=ra_priv,g_priv=ga_priv,b_priv=ba_priv,r_pub=ra_pub,g_pub=ga_pub,b_pub=ba_pub,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
     write_keys_to_file(output_folder + "/keys_2.txt",r_priv=rb_priv,g_priv=gb_priv,b_priv=bb_priv,r_pub=rb_pub,g_pub=gb_pub,b_pub=bb_pub,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
@@ -59,7 +61,8 @@ if __name__ == "__main__":
     #Decoder
     b,g,r = split_image_into_channel(image)
     b_dec,g_dec,r_dec = encode_to_dna(b,g,r)
-    b_deinterleaved,g_deinterleaved,r_deinterleaved = deinterleave_dna(b_dec,g_dec,r_dec)
+    b_dec,g_dec,r_dec = deinterleave_dna_row(b_dec,g_dec,r_dec)
+    b_deinterleaved,g_deinterleaved,r_deinterleaved = deinterleave_dna_col(b_dec,g_dec,r_dec)
 
     #invershift
     b_shift = inverse_shift_array_with_octal_sequece(b_deinterleaved, shift_sequence_b, shared_ba)

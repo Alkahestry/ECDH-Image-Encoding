@@ -4,7 +4,7 @@ from crypto.dna_operation import dna_sub
 
 
 #deinterleave dna
-def deinterleave_dna(b_dna,g_dna,r_dna):
+def deinterleave_dna_col(b_dna,g_dna,r_dna):
     m,n = b_dna.shape
     b_dna_deinterleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
     g_dna_deinterleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
@@ -23,6 +23,27 @@ def deinterleave_dna(b_dna,g_dna,r_dna):
             b_dna_deinterleaved[:,j] = r_dna[:,j]
             g_dna_deinterleaved[:,j] = b_dna[:,j]
             r_dna_deinterleaved[:,j] = g_dna[:,j]
+
+    return b_dna_deinterleaved,g_dna_deinterleaved,r_dna_deinterleaved
+
+def deinterleave_dna_row(b_dna,g_dna,r_dna):
+    m,n = b_dna.shape
+    b_dna_deinterleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
+    g_dna_deinterleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
+    r_dna_deinterleaved = np.zeros(shape=(r_dna.shape[0],r_dna.shape[1]),dtype="object")
+    for i in range(m):
+        if i%3==0:
+            b_dna_deinterleaved[i,:] = b_dna[i,:]
+            g_dna_deinterleaved[i,:] = g_dna[i,:]
+            r_dna_deinterleaved[i,:] = r_dna[i,:]
+        elif i%3==1:
+            b_dna_deinterleaved[i,:] = g_dna[i,:]
+            g_dna_deinterleaved[i,:] = r_dna[i,:]
+            r_dna_deinterleaved[i,:] = b_dna[i,:]
+        else:
+            b_dna_deinterleaved[i,:] = r_dna[i,:]
+            g_dna_deinterleaved[i,:] = b_dna[i,:]
+            r_dna_deinterleaved[i,:] = g_dna[i,:]
 
     return b_dna_deinterleaved,g_dna_deinterleaved,r_dna_deinterleaved
 
