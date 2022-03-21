@@ -35,7 +35,6 @@ def encode_to_dna(b,g,r):
 #Step 3
 def dna_addition(b_enc,g_enc,r_enc):
     b,g,r = b_enc,g_enc,r_enc
-    print(b.shape)
     m,n = b_enc.shape
     b_dna= np.zeros(shape=(b.shape[0],b.shape[1]),dtype="object")
     g_dna = np.zeros(shape=(g.shape[0],g.shape[1]),dtype="object")

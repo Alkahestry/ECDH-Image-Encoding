@@ -3,7 +3,8 @@ import numpy as np
 import os
 from crypto import *
 #Read image
-img = cv2.imread("gan.jpg")
+img_path = "gan.jpg"
+img = cv2.imread(img_path)
 
 #Generate private key
 ra_priv,rb_priv,ga_priv,gb_priv,ba_priv,bb_priv = [os.urandom(32) for _ in range(6)]
@@ -23,6 +24,11 @@ def write_keys_to_file(file_name: str,**kwargs):
         f.write("Private key R: {}\n".format(kwargs["r_priv"]))
         f.write("Private key G: {}\n".format(kwargs["g_priv"]))
         f.write("Private key B: {}\n".format(kwargs["b_priv"]))
+
+        f.write("\n")
+        f.write("Public key R: {}\n".format(binascii.hexlify(kwargs["r_pub"].encode())))
+        f.write("Public key G: {}\n".format(binascii.hexlify(kwargs["g_pub"].encode())))
+        f.write("Public key B: {}\n".format(binascii.hexlify(kwargs["b_pub"].encode())))
 
         f.write("\n")
         f.write("Shift sequence R: {}\n".format(kwargs["r_shift"]))
@@ -52,14 +58,15 @@ if __name__ == "__main__":
     image = np.dstack((b_int,g_int,r_int))
     image = image.astype(np.uint8)
 
-    # cv2.imshow("Image",image)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    # cv2.imwrite("encoded_image.jpg",image)
+    cv2.imshow("Enconded Image",image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    cv2.imwrite("encoded_image."+img_path.split('.')[1],image)
     print("Encoding image done!")
     print("Writing keys to file...")
-    write_keys_to_file("key_1.txt",r_priv=ra_priv,g_priv=ga_priv,b_priv=ba_priv,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
-    write_keys_to_file("key_2.txt",r_priv=rb_priv,g_priv=gb_priv,b_priv=bb_priv,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
+    write_keys_to_file("keys_1.txt",r_priv=ra_priv,g_priv=ga_priv,b_priv=ba_priv,r_pub=ra_pub,g_pub=ga_pub,b_pub=ba_pub,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
+    write_keys_to_file("keys_2.txt",r_priv=rb_priv,g_priv=gb_priv,b_priv=bb_priv,r_pub=rb_pub,g_pub=gb_pub,b_pub=bb_pub,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
+    print("Writing keys to file done!")
     print("Decoding image...")
     #Decoder
     b,g,r = split_image_into_channel(image)

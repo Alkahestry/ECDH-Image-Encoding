@@ -1,0 +1,11 @@
+Private key R: b'l\xb3\xb6\x1d%z9\xbf\xe1o\xd6\xb3DV\x8f\x9br\xf0\xecI\xb1\xdd\xce\x1b\x91\xe2Q*\x9dh\xd3\xdf'
+Private key G: b'\xfbz\xd8H\x155y\xd1&\x85&\x1e\xf6\x7f\x08\xe5\xb3\xa2\x03m~ij7\xca\xd6\x0b\xca\xf3&G\x9c'
+Private key B: b'~e\xae\xf3\x85\x8b\xef\xfe\x1c\xe4\xc0i\xac7\xf7i}F\x06\xcd\x1e=lb\xf7\xb9\xd3p0\x17i{'
+
+Public key R: b'c3bc646c0a4c6fc295c3a4c2ad0fc28f70c3ad6b1809625fc383c3a66fc2b3c2990218c3820536c2a7c2935261'
+Public key G: b'683bc3bcc3ba3ac28a05c38c6ac3afc2bf67c38cc3bec39bc3b44dc28dc39d0a2ac286c28b031ec2adc38dc2917d552475'
+Public key B: b'111e7d77c2b7c29ec2b728c29ac3b07bc2a0c3a64fc2b7c284c395c383c3ad5b18c286c2aa52c2a9c29c4ac38a21c3a5c29829'
+
+Shift sequence R: 440370110275006
+Shift sequence G: 640401005445362
+Shift sequence B: 563075347327476

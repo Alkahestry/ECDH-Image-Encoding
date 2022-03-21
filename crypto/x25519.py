@@ -25,7 +25,6 @@ def cswap(swap, x_2, x_3):
     x_3 %= P
     return (x_2, x_3)
 
-# Based on https://tools.ietf.org/html/rfc7748
 def X25519(k, u):
     x_1 = u
     x_2 = 1
