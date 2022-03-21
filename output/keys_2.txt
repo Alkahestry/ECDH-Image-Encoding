@@ -1,11 +1,11 @@
-Private key R: b"\xe9d[\xa9Gu\x10B\x0c}]l\x8d\x9cz\x81\xd3\x12\x93\x85$+'v<\xd4\xaf*,\xf4\x81\x83"
-Private key G: b'\x11\xe8:\xfb\xe6\x94=\xffg\x0e\x92Kc\x16\xec1M{\xadUmR\xde\xbb)Te\xadK\x1d\xf4U'
-Private key B: b'BC\xf4\xf5\x1a\xc5\x88\xb4,Q4\x1a\xfc\x01\xa3p\x13\xc9\xe9\xb7\xc7L];A\x0b\x89\xd1\x82+\xc9\xc1'
+Private key R: b'\xe0\xdfR\xcby\x80t\x87\xfd\x86\xb6\x8e_y\x0c=\x91jK]h\xc5\xe4Nf\xb3\xde{\x16\xe6\x84n'
+Private key G: b'\x87\x9a\xe0\xc6h\xe6{\xa1\xacE\xd4{-\xf4\xd7u\xfc\x1dj\xc5\\\xa5\x0f;%\x80q\xae\x0f\xa3m\xdc'
+Private key B: b'\xec^\x16\x9c\x00\xd3E\xff\x97\x08\x97\xdf\x0b.U\x13.\xf2\x88SpDq\x998\xdb\xe3%\xc8\\\xbc\xe5'
 
-Public key R: b'3571c2b7c2b47d61c3b13dc2b5c395c3bcc39d412816791f1158c396c295092e17c2bd1f4e432f4dc3be6e'
-Public key G: b'0c2e38c29ec297c2bcc3ba5ec3b46058c3a162c3a77e64c2b500436fc297213ac291293ac3b3c284c2b5c3b62238'
-Public key B: b'c298585c37183ac2adc3bfc3bc2b7e1b2171712a78c3a4c3bac3a5c2ad7dc3a52ec2bac39fc28fc389c3adc292424e'
+Public key R: b'62047964c28f111ec3a563c385c2b8633c0671c3a4c291c3a14b372621c3bf032d2d7ec398c2b31a5b24'
+Public key G: b'79c2a5c2a4c3822f3065c383c29e42c38918c29407c39ec28a78c299c3bb72c2bac3823171c3a5c2b7c2aac28bc297c3a5c28906'
+Public key B: b'c397c3af14c2a361c3bdc28f297456c28cc394c3bf77c28265052273c3a4c2a8c39b3c7f6742c384c39736c29ec2a801'
 
-Shift sequence R: 511226774512442
-Shift sequence G: 140460436202274
-Shift sequence B: 570274043347245
+Shift sequence R: 313324216435443
+Shift sequence G: 733136737744256
+Shift sequence B: 221454432536003

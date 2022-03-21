@@ -5,7 +5,7 @@ from crypto import *
 from utils import write_keys_to_file
 
 #Read image
-img_path = "Lena.png"
+img_path = "stickman.png"
 img = cv2.imread(img_path)
 output_folder = 'output'
 
