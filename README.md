@@ -53,9 +53,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+
+## Original paper
+[A new RGB image encryption algorithm based on DNA encoding and elliptic curve Diffie–Hellman cryptography](https://www.researchgate.net/publication/293329501_A_new_RGB_image_encryption_algorithm_based_on_DNA_encoding_and_elliptic_curve_Diffie-Hellman_cryptography)
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
 
-## Original paper
-[A new RGB image encryption algorithm based on DNA encoding and elliptic curve Diffie–Hellman cryptography](https://www.researchgate.net/publication/293329501_A_new_RGB_image_encryption_algorithm_based_on_DNA_encoding_and_elliptic_curve_Diffie-Hellman_cryptography)
