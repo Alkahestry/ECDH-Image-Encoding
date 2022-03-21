@@ -1,6 +1,15 @@
+# Table of contents
+* [ECDH-Image-Encoding](#ECDH-Image-Encoding)
+* [Installation](#Installation)
+* [Algorithm](#Algorithm)
+* [Result](#result)
+* [Original paper](#original-paper)
+
 # ECDH-Image-Encoding
 
 This is a Python implementation based on M. Kumar et al.'s algorithm for image security using ECC diversified with DNA encoding. In this method, the authors first encode the RGB image using DNA encoding followed by asymmetric encryption based on elliptic curve Diffie-Hellman encryption.
+
+
 
 ## Installation
 
