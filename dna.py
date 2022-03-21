@@ -7,11 +7,9 @@ import secrets
 import os
 import binascii
 from x25519 import base_point_mult,multscalar,bytes_to_int,int_to_bytes
-from PIL import Image
 #Read image
-img = cv2.imread("gan.jpg")
+img = cv2.imread("Lenna.png")
 
-# size_a,size_b,dim = img.shape   
 #Private key
 ra_priv = os.urandom(32)
 rb_priv = os.urandom(32)
@@ -19,21 +17,6 @@ ga_priv = os.urandom(32)
 gb_priv = os.urandom(32)
 ba_priv = os.urandom(32)
 bb_priv = os.urandom(32)
-# ra_priv = b'\x96\xa4g7\x9d-\xc4Y\x88\x82\xa6\x87\xd5\xd4\xd0\x9f\xbb\xef\x16E5X\x98\xb8.\x0c>\xff\xabM\xec\xdf'
-# rb_priv =  b'. \x00\xd4?/\x0cF\x1f\x03|\x82\x93\xe5\x84O\xe9\xe1\x87\xaa(\xd7\\A1\xcd\xd7\xdf\x93\xd2\xaf5'
-# ga_priv = b'9\xa3`\xc0\xea<\xc5\xc3\x8b^\xacRc\x0c\xf6\x132\xef\xa2\x9a\x8d^\xf9\xab1C?\x94\xc6W0U'
-# gb_priv = b'^\x160\xeb\xf9\xc1\xe6\x8c`\x1f\xc2\x00\xff\x19\x8e7\x17:u1?k\xd4\xaa\x1aAg\x12m\xa1e\xe2'
-# bb_priv = b'\xc7\xa8\xd4m!\xb2;\\\x15AR$\xc2)\x84\xecI\xe8\xf6\xacD-v\xa7\x18c\x7f\x81\xfd\xfa\xe9\xaf'
-# ba_priv = b'\xc5skO@]c\x11\xfa\xaa\xae\xcb|7w\xbc\xaep\xdc\x01\x0b\x05\x14\xab\xd3\xc2:\xcb\xd2R\xbc\x16'
-# print("ra_priv =",ra_priv)
-# print("rb_priv = ",rb_priv)
-# print("ga_priv =",ga_priv)
-# print("gb_priv =",gb_priv)
-# print("bb_priv =",bb_priv)
-# print("ba_priv =",ba_priv)
-#To int
-# ai = bytes_to_int(a)
-# bi = bytes_to_int(b)
 #Public key
 ra_pub = base_point_mult(ra_priv)
 rb_pub = base_point_mult(rb_priv)
@@ -205,10 +188,6 @@ def binary_to_int(array: np.ndarray):
 
 #inverse shifting with shift sequence
 dna_sub = {}
-# dna_sub["GG"]=dna_sub["CC"]=dna_sub["AA"]=dna_sub["TT"]="A"
-# dna_sub["CA"]=dna_sub["AT"]=dna_sub["GC"]=dna_sub["TG"]="C"
-# dna_sub["GA"]=dna_sub["CT"]=dna_sub["TC"]=dna_sub["AG"]="G"
-# dna_sub["TA"]=dna_sub["GT"]=dna_sub["AC"]=dna_sub["CG"]="T"
 dna_sub["GG"]=dna_sub["CC"]=dna_sub["AA"]=dna_sub["TT"]="A"
 dna_sub["AC"]=dna_sub["TA"]=dna_sub["CG"]=dna_sub["GT"]="C"
 dna_sub["AG"]=dna_sub["TC"]=dna_sub["CT"]=dna_sub["GA"]="G"
@@ -261,9 +240,6 @@ def dna_subtraction(b_dec,g_dec,r_dec):
 
     for i in range(m):
         for j in range(n):
-            # b_dna[i,j] = dna_sub["{0}{1}".format(g[i,j][0],b[i,j][0])]+dna_sub["{0}{1}".format(g[i,j][1],b[i,j][1])]+dna_sub["{0}{1}".format(g[i,j][2],b[i,j][2])]+dna_sub["{0}{1}".format(g[i,j][3],b[i,j][3])]
-            # g_dna[i,j] = dna_sub["{0}{1}".format(g[i,j][0],b_dna[i,j][0])]+dna_sub["{0}{1}".format(g[i,j][1],b_dna[i,j][1])]+dna_sub["{0}{1}".format(g[i,j][2],b_dna[i,j][2])]+dna_sub["{0}{1}".format(g[i,j][3],b_dna[i,j][3])]
-            # r_dna[i,j] = dna_sub["{0}{1}".format(r[i,j][0],g_dna[i,j][0])]+dna_sub["{0}{1}".format(r[i,j][1],g_dna[i,j][1])]+dna_sub["{0}{1}".format(r[i,j][2],g_dna[i,j][2])]+dna_sub["{0}{1}".format(r[i,j][3],g_dna[i,j][3])]
             b_dna[i,j] = dna_sub["{0}{1}".format(g[i,j][0],b[i,j][0])]+dna_sub["{0}{1}".format(g[i,j][1],b[i,j][1])]+dna_sub["{0}{1}".format(g[i,j][2],b[i,j][2])]+dna_sub["{0}{1}".format(g[i,j][3],b[i,j][3])]
             g_dna[i,j] = dna_sub["{0}{1}".format(b_dna[i,j][0],g[i,j][0])]+dna_sub["{0}{1}".format(b_dna[i,j][1],g[i,j][1])]+dna_sub["{0}{1}".format(b_dna[i,j][2],g[i,j][2])]+dna_sub["{0}{1}".format(b_dna[i,j][3],g[i,j][3])]
             r_dna[i,j] = dna_sub["{0}{1}".format(g_dna[i,j][0],r[i,j][0])]+dna_sub["{0}{1}".format(g_dna[i,j][1],r[i,j][1])]+dna_sub["{0}{1}".format(g_dna[i,j][2],r[i,j][2])]+dna_sub["{0}{1}".format(g_dna[i,j][3],r[i,j][3])]
@@ -288,9 +264,6 @@ if __name__ == "__main__":
     shift_sequence_b = generate_random_octal_sequence()
     shift_sequence_g = generate_random_octal_sequence()
     shift_sequence_r = generate_random_octal_sequence()
-    # shift_sequence_b = '020726307637632'
-    # shift_sequence_g =  '570456632277222'
-    # shift_sequence_r = '351115474513050'
     b_shift = shift_array_with_octal_sequece(b_dna,shift_sequence_b,shared_ba)
     g_shift = shift_array_with_octal_sequece(g_dna,shift_sequence_g,shared_ga)
     r_shift = shift_array_with_octal_sequece(r_dna,shift_sequence_r,shared_ra)
@@ -318,8 +291,6 @@ if __name__ == "__main__":
     # cv2.imshow("Image",image)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-    # im = Image.fromarray(image)
-    # im.save("image.png")
     # cv2.imwrite("encoded_image.jpg",image)
 
     b,g,r = split_image_into_channel(image)
