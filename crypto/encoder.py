@@ -69,19 +69,19 @@ def interleave_dna(b_dna,g_dna,r_dna):
             b_dna_interleaved[:,j] = g_dna[:,j]
             g_dna_interleaved[:,j] = r_dna[:,j]
             r_dna_interleaved[:,j] = b_dna[:,j]
-    # for i in range(m):
-    #     if j%3==0:
-    #         b_dna_interleaved[i,:] = b_dna_interleaved[i,:]
-    #         g_dna_interleaved[i,:] = g_dna_interleaved[i,:]
-    #         r_dna_interleaved[i,:] = r_dna_interleaved[i,:]
-    #     elif j%3==1:
-    #         b_dna_interleaved[i,:] = r_dna_interleaved[i,:]
-    #         g_dna_interleaved[i,:] = b_dna_interleaved[i,:]
-    #         r_dna_interleaved[i,:] = g_dna_interleaved[i,:]
-    #     else:
-    #         b_dna_interleaved[i,:] = g_dna_interleaved[i,:]
-    #         g_dna_interleaved[i,:] = r_dna_interleaved[i,:]
-    #         r_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+    for i in range(m):
+        if j%3==0:
+            b_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+            g_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+            r_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+        elif j%3==1:
+            b_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+            g_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+            r_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+        else:
+            b_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+            g_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+            r_dna_interleaved[i,:] = b_dna_interleaved[i,:]
 
 
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
