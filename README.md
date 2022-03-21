@@ -1,7 +1,7 @@
 # Table of contents
 * [ECDH-Image-Encoding](#ECDH-Image-Encoding)
 * [Installation](#Installation)
-* [Algorithm](#Algorithm)
+* [Highlights](#Highlights)
 * [Result](#result)
 * [Conclusion](#conclusion)
 * [Original paper](#original-paper)
@@ -25,10 +25,9 @@ git clone https://github.com/Alkahestry/ECDH-Image-Encoding.git
 This repository is a half-finish image cryptography algorithm hence it serves as a template for any image cryptography algorithm, please make the most use out of it.
 
 
-## Algorithm
+## Highlights
 
 
-Highlights:
 + DNA encoding on RGB image.
 + DNA addition.
 + Circular shifting with unique random octal shift sequences for each dimension and shift amount based on ECDH shared keys.
