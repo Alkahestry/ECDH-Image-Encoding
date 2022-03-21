@@ -56,7 +56,6 @@ def interleave_dna(b_dna,g_dna,r_dna):
     b_dna_interleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
     g_dna_interleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
     r_dna_interleaved = np.zeros(shape=(r_dna.shape[0],r_dna.shape[1]),dtype="object")
-    # for i in range(m):
     for j in range(n):
         if j%3==0:
             b_dna_interleaved[:,j] = b_dna[:,j]
@@ -70,6 +69,20 @@ def interleave_dna(b_dna,g_dna,r_dna):
             b_dna_interleaved[:,j] = g_dna[:,j]
             g_dna_interleaved[:,j] = r_dna[:,j]
             r_dna_interleaved[:,j] = b_dna[:,j]
+    # for i in range(m):
+    #     if j%3==0:
+    #         b_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+    #         g_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+    #         r_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+    #     elif j%3==1:
+    #         b_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+    #         g_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+    #         r_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+    #     else:
+    #         b_dna_interleaved[i,:] = g_dna_interleaved[i,:]
+    #         g_dna_interleaved[i,:] = r_dna_interleaved[i,:]
+    #         r_dna_interleaved[i,:] = b_dna_interleaved[i,:]
+
 
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 

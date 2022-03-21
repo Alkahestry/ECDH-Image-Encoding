@@ -31,6 +31,7 @@ if __name__ == "__main__":
     
     b_dna,g_dna,r_dna = dna_addition(b_enc,g_enc,r_enc)
 
+    #Generate random octal sequence for shifting
     shift_sequence_b,shift_sequence_g,shift_sequence_r = [generate_random_octal_sequence() for _ in range(3)]
 
     b_shift = shift_array_with_octal_sequece(b_dna,shift_sequence_b,shared_ba)
