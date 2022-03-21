@@ -3,7 +3,6 @@
 * [Installation](#Installation)
 * [Highlights](#Highlights)
 * [Result](#result)
-* [Conclusion](#conclusion)
 * [Original paper](#original-paper)
 
 # ECDH-Image-Encoding
@@ -21,8 +20,8 @@ git clone https://github.com/Alkahestry/ECDH-Image-Encoding.git
 
 ## Usage
 
-
-This repository is a half-finish image cryptography algorithm hence it serves as a template for any image cryptography algorithm, please make the most use out of it.
+Change the image path at line 8 in demo.py and run. You will get an encoded image and a decoded image with 2 text files contain necessary information for decoding and it should be sent to each party.
+This repository is not a fully completed image cryptography algorithm hence it serves as a template for any image cryptography algorithm, please make the most use out of it.
 
 
 ## Highlights
