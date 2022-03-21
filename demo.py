@@ -1,12 +1,9 @@
 import cv2
 import numpy as np
 import os
-from x25519 import base_point_mult,multscalar
-from encoder import *
-from decoder import *
-from shift import *
+from crypto import *
 #Read image
-img = cv2.imread("Lenna.png")
+img = cv2.imread("gan.jpg")
 
 #Generate private key
 ra_priv,rb_priv,ga_priv,gb_priv,ba_priv,bb_priv = [os.urandom(32) for _ in range(6)]
@@ -21,13 +18,16 @@ shift_address = {0:"DR",1:"D",2:"DL",3:"L",4:"UL",5:"U",6:"UR",7:"R"}
 shift_direction = {"R":shift_array_right,"L":shift_array_left,"U":shift_array_up,"D":shift_array_down}
 inverse_shift_direction = {"R":shift_array_left,"L":shift_array_right,"U":shift_array_down,"D":shift_array_up}
 
-# def write_keys_to_file(file_name: str,key_a: str,key_b: str):
-#     with open(file_name,"w") as f:
-#         f.write(key_a)
-#         f.write("\n")
-#         f.write(key_b)
-#         f.write("\n")
+def write_keys_to_file(file_name: str,**kwargs):
+    with open(file_name,"w") as f:
+        f.write("Private key R: {}\n".format(kwargs["r_priv"]))
+        f.write("Private key G: {}\n".format(kwargs["g_priv"]))
+        f.write("Private key B: {}\n".format(kwargs["b_priv"]))
 
+        f.write("\n")
+        f.write("Shift sequence R: {}\n".format(kwargs["r_shift"]))
+        f.write("Shift sequence G: {}\n".format(kwargs["g_shift"]))
+        f.write("Shift sequence B: {}\n".format(kwargs["b_shift"]))
 
 if __name__ == "__main__":
     print("Encoding image...")
@@ -58,6 +58,8 @@ if __name__ == "__main__":
     # cv2.imwrite("encoded_image.jpg",image)
     print("Encoding image done!")
     print("Writing keys to file...")
+    write_keys_to_file("key_1.txt",r_priv=ra_priv,g_priv=ga_priv,b_priv=ba_priv,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
+    write_keys_to_file("key_2.txt",r_priv=rb_priv,g_priv=gb_priv,b_priv=bb_priv,r_shift=shift_sequence_r,g_shift=shift_sequence_g,b_shift=shift_sequence_b)
     print("Decoding image...")
     #Decoder
     b,g,r = split_image_into_channel(image)

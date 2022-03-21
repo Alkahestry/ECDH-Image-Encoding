@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from dna_operation import dna
+from crypto.dna_operation import dna
 #Split image into RGB channels
 def split_image_into_channel(img: np.ndarray):
     b,g,r = cv2.split(img)

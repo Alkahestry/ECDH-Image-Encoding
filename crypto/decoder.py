@@ -1,6 +1,6 @@
 import numpy as np
-from shift import *
-from dna_operation import dna_sub
+from crypto.shift import *
+from crypto.dna_operation import dna_sub
 
 
 #deinterleave dna

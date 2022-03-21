@@ -1,6 +1,6 @@
 import secrets
 import string  
-from x25519 import base_point_mult,multscalar,bytes_to_int,int_to_bytes
+from crypto.x25519 import base_point_mult,multscalar,bytes_to_int,int_to_bytes
 import numpy as np
 import binascii
 
