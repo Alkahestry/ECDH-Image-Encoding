@@ -13,7 +13,7 @@ def bin_to_dna(bin:str):
         dna_enc += dna["{0}{1}".format(bin[i],bin[i+1])]
     return dna_enc
 
-def encode_to_dna(b,g,r):
+def encode_to_dna(b,g,r)->np.ndarray:
     b_bin = np.zeros(shape=(b.shape[0],b.shape[1]),dtype="object")
     g_bin = np.zeros(shape=(g.shape[0],g.shape[1]),dtype="object")
     r_bin = np.zeros(shape=(r.shape[0],r.shape[1]),dtype="object")
@@ -32,8 +32,7 @@ def encode_to_dna(b,g,r):
     r_bin = r_bin.astype(str)
     return b_bin,g_bin,r_bin
 
-#Step 3
-def dna_addition(b_enc,g_enc,r_enc):
+def dna_addition(b_enc,g_enc,r_enc)->np.ndarray:
     b,g,r = b_enc,g_enc,r_enc
     m,n = b_enc.shape
     b_dna= np.zeros(shape=(b.shape[0],b.shape[1]),dtype="object")
@@ -49,9 +48,8 @@ def dna_addition(b_enc,g_enc,r_enc):
     r_dna = r_dna.astype(str)
     return b_dna,g_dna,r_dna
 
-#Step 5
 #Interleave BBBGGGRRR to BGRBGRBGR
-def interleave_dna_col(b_dna,g_dna,r_dna):
+def interleave_dna_col(b_dna,g_dna,r_dna)->np.ndarray:
     m,n = b_dna.shape
     b_dna_interleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
     g_dna_interleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
@@ -72,7 +70,7 @@ def interleave_dna_col(b_dna,g_dna,r_dna):
 
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 
-def interleave_dna_row(b_dna,g_dna,r_dna):
+def interleave_dna_row(b_dna,g_dna,r_dna)->np.ndarray:
     m,n = b_dna.shape
     b_dna_interleaved = np.zeros(shape=(b_dna.shape[0],b_dna.shape[1]),dtype="object")
     g_dna_interleaved = np.zeros(shape=(g_dna.shape[0],g_dna.shape[1]),dtype="object")
@@ -94,14 +92,14 @@ def interleave_dna_row(b_dna,g_dna,r_dna):
     return b_dna_interleaved,g_dna_interleaved,r_dna_interleaved
 
 #DNA string to binary
-def dna_str_to_binary(dna_str: str):
+def dna_str_to_binary(dna_str: str)->np.ndarray:
     binary = ""
     for i in range(len(dna_str)):
         binary+=dna[dna_str[i]]
     return binary
 
 #Dna to binary
-def dna_to_binary(dna: np.ndarray):
+def dna_to_binary(dna: np.ndarray)->np.ndarray:
     m,n = dna.shape
     binary_dna = np.zeros(shape=(m,n),dtype="object")
     for i in range(m):
@@ -110,7 +108,7 @@ def dna_to_binary(dna: np.ndarray):
     return binary_dna
 
 #Binary to int
-def binary_to_int(array: np.ndarray):
+def binary_to_int(array: np.ndarray)->np.ndarray:
     m,n = array.shape
     int_array = np.zeros(shape=(m,n),dtype="int")
     for i in range(m):

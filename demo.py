@@ -5,7 +5,7 @@ from crypto import *
 from utils import write_keys_to_file
 
 #Read image
-img_path = "gan.jpg"
+img_path = "Lena.png"
 img = cv2.imread(img_path)
 output_folder = 'output'
 
@@ -48,8 +48,9 @@ if __name__ == "__main__":
     
     image = np.dstack((b_int,g_int,r_int))
     image = image.astype(np.uint8)
-    print("Encoding image done!")
-    cv2.imshow("Enconded Image",image)
+    print("Image encoded successfully!")
+
+    cv2.imshow("Encoded Image",image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     cv2.imwrite(output_folder + "/encoded_image."+img_path.split('.')[1],image)
@@ -77,7 +78,10 @@ if __name__ == "__main__":
 
     image = np.dstack((b_dna_int,g_dna_int,r_dna_int))
     image = image.astype(np.uint8)
-    print("Decoding image done!")
+    print("Image decoded!")
+    cv2.imwrite(output_folder + "/decoded_image."+img_path.split('.')[1],image)
+
     cv2.imshow("Image",image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
