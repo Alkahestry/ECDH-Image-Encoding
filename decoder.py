@@ -7,10 +7,16 @@ import secrets
 import os
 import binascii
 from x25519 import base_point_mult,multscalar,bytes_to_int,int_to_bytes
-
+from PIL import Image
 #Read image
-img = cv2.imread("encoded_image1.jpg")
-
+# img = Image.open("encoded_image.jpg")
+# img = np.asarray(img)
+img = np.loadtxt("img.txt")
+imga = img.reshape(img.shape[0], img.shape[1] // img.shape[2], img.shape[2])
+print(imga.shape)
+# img = cv2.imread("encoded_image.jpg",mode="RGB")
+cv2.imwrite("encoded_img_read.jpg",img)
+print(imga[0][:10,:10])
 ra_priv = b'\x96\xa4g7\x9d-\xc4Y\x88\x82\xa6\x87\xd5\xd4\xd0\x9f\xbb\xef\x16E5X\x98\xb8.\x0c>\xff\xabM\xec\xdf'
 rb_priv =  b'. \x00\xd4?/\x0cF\x1f\x03|\x82\x93\xe5\x84O\xe9\xe1\x87\xaa(\xd7\\A1\xcd\xd7\xdf\x93\xd2\xaf5'
 ga_priv = b'9\xa3`\xc0\xea<\xc5\xc3\x8b^\xacRc\x0c\xf6\x132\xef\xa2\x9a\x8d^\xf9\xab1C?\x94\xc6W0U'
@@ -47,14 +53,14 @@ dna["G"] = "10"
 dna["T"] = "11"
 
 #DNA subtraction
-dna["GG"]=dna["CC"]=dna["AA"]=dna["TT"]="A"
-dna["CA"]=dna["AT"]=dna["GC"]=dna["TG"]="C"
-dna["GA"]=dna["CT"]=dna["TC"]=dna["AG"]="G"
-dna["TA"]=dna["GT"]=dna["AC"]=dna["CG"]="T"
 # dna["GG"]=dna["CC"]=dna["AA"]=dna["TT"]="A"
-# dna["AC"]=dna["TA"]=dna["CG"]=dna["GT"]="C"
-# dna["AG"]=dna["TC"]=dna["CT"]=dna["GA"]="G"
-# dna["AT"]=dna["TG"]=dna["CA"]=dna["GC"]="T"
+# dna["CA"]=dna["AT"]=dna["GC"]=dna["TG"]="C"
+# dna["GA"]=dna["CT"]=dna["TC"]=dna["AG"]="G"
+# dna["TA"]=dna["GT"]=dna["AC"]=dna["CG"]="T"
+dna["GG"]=dna["CC"]=dna["AA"]=dna["TT"]="A"
+dna["AC"]=dna["TA"]=dna["CG"]=dna["GT"]="C"
+dna["AG"]=dna["TC"]=dna["CT"]=dna["GA"]="G"
+dna["AT"]=dna["TG"]=dna["CA"]=dna["GC"]="T"
 #Split image into RGB channels
 def split_image_into_channel(img: np.ndarray):
     b,g,r = cv2.split(img)
@@ -126,7 +132,7 @@ def shift_array_down(img: np.ndarray,shift_amount: int):
     img = np.roll(img,-shift_amount,axis=0)
     return img
 
-shift_direction = {"R":shift_array_left,"L":shift_array_right,"U":shift_array_down,"D":shift_array_up}
+inverse_shift_direction = {"R":shift_array_left,"L":shift_array_right,"U":shift_array_down,"D":shift_array_up}
 
 def inverse_shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str,shared_key: str):
     shared_key = bytes_to_int(binascii.hexlify(shared_key.encode()))
@@ -138,7 +144,7 @@ def inverse_shift_array_with_octal_sequece(array: np.ndarray,shift_sequence: str
 
     for shift in shift_order:
         for direction in reversed(shift):
-            array = shift_direction[direction](array,-int(str(shared_key)[index:index+2]))
+            array = inverse_shift_direction[direction](array,-int(str(shared_key)[index:index+2]))
         index = index -1
     return array
 
@@ -187,19 +193,20 @@ def binary_to_int(array: np.ndarray):
 
 if __name__== "__main__":
     b,g,r = split_image_into_channel(img)
+    print("b after split into channel {0}".format(b))
     b_dec,g_dec,r_dec = process(b,g,r)
+    print("b after process {0}".format(b_dec))
     b_deinterleaved,g_deinterleaved,r_deinterleaved = deinterleave_dna(b_dec,g_dec,r_dec)
-    print(b_deinterleaved[:10,:10])
+    print("b after inverse deinterleave {0}".format(b_deinterleaved))
 
     #invershift
     b_shift = inverse_shift_array_with_octal_sequece(b_deinterleaved, shift_sequence_b, shared_ba)
     g_shift = inverse_shift_array_with_octal_sequece(g_deinterleaved, shift_sequence_g, shared_ga)
     r_shift = inverse_shift_array_with_octal_sequece(r_deinterleaved, shift_sequence_r, shared_ra)
-
-    print(b_shift[:10,:10])
+    print("b after inverse shift {0}".format(b_shift))
 
     b_dna,g_dna,r_dna = dna_subtraction(b_shift,g_shift,r_shift)
-    print(b_dna[:10,:10])
+    print("b_dna {0}".format(b_dna[:10,:10]))
 
     b_dna_binary = dna_to_binary(b_dna)
     g_dna_binary = dna_to_binary(g_dna)
