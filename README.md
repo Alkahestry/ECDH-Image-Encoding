@@ -19,10 +19,18 @@ This repository is a half-finish image cryptography algorithm hence it serves as
 
 
 This algorithm includes the following steps:
-+ DNA encoding on RGB image
-+ DNA addition for further scrambling the image
-+ Unique random shift sequences for each dimension with amount based on ECDH shared keys.
-+ Interleaving the RGB dimensions
++ DNA encoding on RGB image.
++ DNA addition.
++ Circular shifting with unique random octal shift sequences for each dimension and shift amount based on ECDH shared keys.
++ The dimensions are interleaved
++ Bernstein's curve25519 at ECDHE for fast encryption
++ Decoding steps require 3 shared keys (calculated from 3 private keys and 3 other party's public keys) along with 3 octal shift sequences.
+
+
+## Result
+
+
+![alt text](https://github.com/Alkahestry/ECDH-Image-Encoding/blob/main/resources/combine_images.jpg)
 
 
 ## Contributing
